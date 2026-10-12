@@ -12,4 +12,18 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Stała konfiguracja buildu pod Cloudflare Workers — zawsze ten sam folder wyjściowy (dist/),
+  // niezależnie od tego, gdzie budowana jest strona (lokalnie czy w Cloudflare).
+  nitro: {
+    preset: "cloudflare-module",
+    output: {
+      dir: "dist",
+      serverDir: "dist/server",
+      publicDir: "dist/client",
+    },
+    cloudflare: {
+      nodeCompat: true,
+      deployConfig: false,
+    },
+  },
 });
