@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cleanride",
+  "main": "dist/server/index.mjs",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "dist/client",
+    "binding": "ASSETS"
+  },
+  "observability": { "enabled": true }
+}

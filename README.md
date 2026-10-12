@@ -40,6 +40,18 @@ Wynik budowania trafia do katalogu `dist/`. Projekt zawiera serwer (renderowanie
 serwera), więc do wystawienia go w sieci potrzebny jest hosting potrafiący uruchomić serwer Node.js —
 sama publikacja plików nie wystarczy.
 
+## Wdrożenie na Cloudflare (Workers)
+
+Plik `wrangler.jsonc` jest już w projekcie, więc Cloudflare nie próbuje nic konfigurować automatycznie.
+
+W Cloudflare: Workers & Pages → Create → Import a repository, a w ustawieniach kompilacji:
+
+- Build command: `bun run build`
+- Deploy command: `npx wrangler deploy`
+- Nazwa Workera musi być taka sama jak `name` w `wrangler.jsonc` (`cleanride`)
+
+Nie wybieraj „Pages" ani katalogu `dist/client` jako samodzielnego wyjścia — strona potrzebuje serwera (Worker), który jest w `dist/server`.
+
 ## Struktura
 
 ```
