@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "cleanride",
+  "name": "strona",
   "main": "dist/server/index.mjs",
   "build": {
     "command": "bun run build"
