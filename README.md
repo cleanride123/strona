@@ -46,7 +46,7 @@ Plik `wrangler.jsonc` jest już w projekcie, więc Cloudflare nie próbuje nic k
 
 W Cloudflare: Workers & Pages → Create → Import a repository, a w ustawieniach kompilacji:
 
-- Build command: `bun run build`
+- Build command: może zostać puste (strona i tak zbuduje się sama — `wrangler.jsonc` ma ustawione `build.command`)
 - Deploy command: `npx wrangler deploy`
 - Nazwa Workera musi być taka sama jak `name` w `wrangler.jsonc` (`cleanride`)
 
