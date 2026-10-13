@@ -1,77 +1,78 @@
 # CleanRide — strona internetowa
 
-Strona firmy CleanRide: autokosmetyka, pranie tapicerki samochodowej i meblowej.
-Dane kontaktowe: telefon **663 803 798**, e-mail **cleanride@interia.pl**, Gojceka, 32-600 Zaborze.
+Strona firmy CleanRide (autokosmetyka, pranie tapicerki samochodowej i meblowej).
+Wersja statyczna: wszystkie treści i zdjęcia są w kodzie, bez bazy danych i bez logowania.
 
-## Co zawiera strona
+## Co jest na stronie
 
-- **Strona główna** (`/`) — nagłówek, karuzela opinii z Google, sześć kart usług, sekcja o firmie,
-  galeria realizacji, opinie, kontakt, stopka.
-- **Podstrony usług** (`/uslugi/<nazwa-uslugi>`) — opis usługi, galeria zdjęć, lista zakresu,
-  kroki pracy i przyciski kontaktu. Dostępne:
-  - `/uslugi/pranie-tapicerki-samochodowej`
-  - `/uslugi/pranie-tapicerki-meblowej`
-  - `/uslugi/dywany-wykladziny-chodniki`
-  - `/uslugi/czyszczenie-i-impregnacja-skory`
-  - `/uslugi/ozonowanie`
-  - `/uslugi/kompleksowe-czyszczenie-wnetrza`
+- **Strona główna** (`/`) — nawigacja, powitanie z karuzelą opinii z Google, usługi,
+  „O nas" z mapą Google, galeria realizacji, certyfikaty, opinie, kontakt, stopka.
+- **Podstrony usług** (`/uslugi/<slug>`) — osobna strona dla każdej z 6 usług:
+  `pranie-tapicerki-samochodowej`, `pranie-tapicerki-meblowej`,
+  `dywany-wykladziny-chodniki`, `czyszczenie-i-impregnacja-skory`, `ozonowanie`,
+  `kompleksowe-czyszczenie-wnetrza`.
 
-Treści (opisy usług, podpisy zdjęć) znajdują się w jednym pliku: `src/lib/services.ts`.
-Dane kontaktowe: `src/lib/services.ts` (stałe `PHONE`, `PHONE_HREF`) oraz `src/routes/index.tsx`.
+## Kontakt i dane firmy
 
-## Jak uruchomić lokalnie
+- Telefon: **663 803 798**
+- E-mail: **cleanride@interia.pl**
+- Adres: **Grojceka, 32-600 Zaborze**
 
-Wymagany Node.js 22 (lub nowszy) oraz npm.
+Dane są wpisane w kodzie — najłatwiej zmienić je w plikach
+`src/lib/services.ts` (telefon) i `src/routes/index.tsx` (pozostałe).
+
+## Gdzie co zmienić
+
+| Co chcesz zmienić | Plik |
+| --- | --- |
+| Nazwy, opisy, ceny i zdjęcia usług | `src/lib/services.ts` |
+| Teksty na stronie głównej, opinie, certyfikaty, mapa | `src/routes/index.tsx` |
+| Zdjęcia i pliki certyfikatów (PDF) | `src/assets/img/` |
+| Kolory, czcionki, wygląd | `src/styles.css` |
+| Tytuł i opis strony w Google | `src/routes/__root.tsx` oraz `head()` w `src/routes/index.tsx` |
+
+Zdjęcia importuje się w kodzie tak: `import zdjecie from "@/assets/img/cleanride-gallery-1.png";`
+i używa jako `src={zdjecie}`. Żeby podmienić zdjęcie, wstaw nowy plik do `src/assets/img/`
+i podmień nazwę w imporcie.
+
+## Uruchomienie u siebie
+
+Potrzebny Node.js 20+ oraz [Bun](https://bun.sh) (albo npm).
 
 ```sh
-npm install
-npm run dev
+bun install        # lub: npm install
+bun run build      # buduje gotowe pliki do folderu dist/
+bun run dev        # podgląd na żywo na http://localhost:5173
 ```
 
-Następnie otwórz adres podany w terminalu (domyślnie http://localhost:5173).
+## Wdrożenie na Cloudflare Workers
 
-## Jak zbudować wersję produkcyjną
+Gotowe pliki trafiają do `dist/` (`dist/server/index.mjs` dla serwera,
+`dist/client/` dla zdjęć i stylów) — to konfiguracja pod Cloudflare Workers.
 
-```sh
-npm run build
-```
+1. Wgraj ten kod do repository na GitHubie.
+2. W Cloudflare: **Workers & Pages → Create → Import a repository** i wskaż to repository.
+3. Ustaw:
+   - **Build command**: `bun run build`
+   - **Deploy command**: `npx wrangler deploy`
+   - **Framework preset**: None (Plain)
+4. Nazwa projektu w Cloudflare musi być zgodna z polem `"name"` w pliku `wrangler.jsonc`
+   (domyślnie `strona` — zmień obie nazwy na takie same, jeśli chcesz inną).
 
-Wynik budowania trafia do katalogu `dist/`. Projekt zawiera serwer (renderowanie stron po stronie
-serwera), więc do wystawienia go w sieci potrzebny jest hosting potrafiący uruchomić serwer Node.js —
-sama publikacja plików nie wystarczy.
+Alternatywnie, z własnego komputera: `bun install && bun run deploy`.
 
-## Wdrożenie na Cloudflare (Workers)
+## Warto wiedzieć
 
-Plik `wrangler.jsonc` jest już w projekcie, więc Cloudflare nie próbuje nic konfigurować automatycznie.
-
-W Cloudflare: Workers & Pages → Create → Import a repository, a w ustawieniach kompilacji:
-
-- Build command: może zostać puste (strona i tak zbuduje się sama — `wrangler.jsonc` ma ustawione `build.command`)
-- Deploy command: `npx wrangler deploy`
-- Nazwa Workera musi być taka sama jak `name` w `wrangler.jsonc` (`cleanride`)
-
-Nie wybieraj „Pages" ani katalogu `dist/client` jako samodzielnego wyjścia — strona potrzebuje serwera (Worker), który jest w `dist/server`.
-
-## Struktura
-
-```
-src/
-  assets/img/     zdjęcia używane na stronie
-  routes/         poszczególne strony (strona główna, podstrony usług, układ wspólny)
-  lib/services.ts treści usług: nazwy, opisy, zdjęcia, podpisy
-  components/     elementy interfejsu
-  styles.css      kolory, czcionki, wygląd
-public/           ikona strony i robots.txt
-```
-
-## Zmiana treści
-
-- Telefon, e-mail, adres — `src/lib/services.ts` oraz `src/routes/index.tsx`.
-- Opisy usług i podpisy zdjęć — `src/lib/services.ts`.
-- Zdjęcia — włóż nowe pliki do `src/assets/img/` i podmień import na początku `src/lib/services.ts`
-  lub `src/routes/index.tsx`.
-- Link do profilu w Google (karuzela opinii) — stała `GOOGLE_REVIEWS_URL` w `src/routes/index.tsx`.
+- **Link do wizytówki w Google** jest w pliku `src/routes/index.tsx` jako
+  `GOOGLE_REVIEWS_URL`. Teraz prowadzi do wyszukiwania — wstaw tam dokładny adres
+  swojej wizytówki, gdy go masz.
+- **Formularz kontaktowy** jest tylko podglądowy: po kliknięciu „Wyślij" nic się nie wysyła.
+  Żeby dostawać zgłoszenia na e-mail, trzeba podłączyć wysyłkę (np. przez usługę e-mail).
+- **Opinie z Google** w karuzeli i w sekcji „Co mówią nasi klienci" są przepisane do kodu.
+  Przy zmianie ocen trzeba je zaktualizować ręcznie w `src/routes/index.tsx`.
+- **Certyfikaty**: podglądy (JPG) i pełne dokumenty (PDF) leżą w `src/assets/img/`,
+  a opisy w sekcji `CERTIFICATES` w `src/routes/index.tsx`.
 
 ## Zbudowane z
 
-TanStack Start, React 19, TypeScript, Tailwind CSS 4.
+TanStack Start (React 19 + TypeScript), Tailwind CSS v4, Vite, Nitro (Cloudflare Workers).

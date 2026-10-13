@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SERVICES } from "@/lib/services";
-import onasAsset from "@/assets/img/cleanride-onas.png";
 import galleryAsset1 from "@/assets/img/cleanride-gallery-1.png";
 import galleryAsset2 from "@/assets/img/cleanride-gallery-2.png";
 import galleryAsset3 from "@/assets/img/cleanride-gallery-3.png";
@@ -25,6 +24,19 @@ import {
   Mail,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { FileText as CertFileIcon, BadgeCheck as CertBadgeIcon } from "lucide-react";
+import certAutoImg from "@/assets/img/cert-auto-detailing.jpg";
+import certAutoPdf from "@/assets/img/cert-auto-detailing.pdf";
+import certSkoraImg from "@/assets/img/cert-skora.jpg";
+import certSkoraPdf from "@/assets/img/cert-skora.pdf";
+import certOzonImg from "@/assets/img/cert-ozonowanie.jpg";
+import certOzonPdf from "@/assets/img/cert-ozonowanie.pdf";
+import certPosadzkiImg from "@/assets/img/cert-posadzki.jpg";
+import certPosadzkiPdf from "@/assets/img/cert-posadzki.pdf";
+import certTapPodstImg from "@/assets/img/cert-tapicerka-podst.jpg";
+import certTapPodstPdf from "@/assets/img/cert-tapicerka-podst.pdf";
+import certTapZaawImg from "@/assets/img/cert-tapicerka-zaaw.jpg";
+import certTapZaawPdf from "@/assets/img/cert-tapicerka-zaaw.pdf";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -106,7 +118,7 @@ const GOOGLE_REVIEWS = [
 const PHONE = "663 803 798";
 const PHONE_HREF = "tel:+48663803798";
 const EMAIL = "cleanride@interia.pl";
-const ADDRESS = "Gojceka, 32-600 Zaborze";
+const ADDRESS = "Grojceka, 32-600 Zaborze";
 
 function ImagePlaceholder({ label, className }: { label: string; className?: string }) {
   return (
@@ -157,6 +169,7 @@ function Navbar() {
     { label: "Usługi", href: "#uslugi" },
     { label: "O nas", href: "#o-nas" },
     { label: "Galeria", href: "#galeria" },
+    { label: "Certyfikaty", href: "#certyfikaty" },
     { label: "Opinie", href: "#opinie" },
     { label: "Kontakt", href: "#kontakt" },
   ];
@@ -313,9 +326,9 @@ function Hero() {
             Mobilne usługi w Twojej okolicy
           </div>
           <h1 className="font-heading text-4xl font-bold leading-[1.1] text-foreground sm:text-5xl lg:text-6xl">
-            Profesjonalny
+            Profesjonalna
             <br />
-            Auto Detailing
+            Autokosmetyka
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Profesjonalna autokosmetyka, pranie tapicerki samochodowej i meblowej oraz kompleksowe
@@ -418,11 +431,16 @@ function About() {
     <section id="o-nas" className="relative overflow-hidden py-20">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-        <img
-          src={onasAsset}
-          alt="CleanRide — mobilna jednostka serwisowa"
-          className="aspect-[4/3] w-full rounded-2xl object-cover"
-        />
+        <div>
+          <iframe
+            src="https://maps.google.com/maps?q=CleanRide%20Auto%20Kosmetyka%20Grojecka%20Zaborze&z=15&hl=pl&output=embed"
+            title="Mapa — CleanRide, Grojecka, 32-600 Zaborze"
+            className="mt-6 aspect-[4/3] w-full rounded-2xl border-0"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
         <div>
           <SectionHeading
             align="left"
@@ -476,6 +494,74 @@ function Gallery() {
                 className="aspect-[4/3] w-full object-cover transition-transform duration-300 hover:scale-[1.02]"
               />
             </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const CERTIFICATES = [
+  { title: "Auto Detailing", subtitle: "Zaawansowany auto detailing i pielęgnacja wnętrza", level: "Zaawansowany", date: "08–09.01.2024", img: certAutoImg, pdf: certAutoPdf },
+  { title: "Obicia skórzane", subtitle: "Czyszczenie, pielęgnacja, konserwacja i impregnacja skór", level: "Specjalista", date: "05.01.2024", img: certSkoraImg, pdf: certSkoraPdf },
+  { title: "Pranie tapicerki i dywanów", subtitle: "Pranie obić materiałowych, dywanów i wykładzin", level: "Zaawansowany", date: "03.01.2024", img: certTapZaawImg, pdf: certTapZaawPdf },
+  { title: "Ozonowanie", subtitle: "Dezynfekcja metodą ozonowania", level: "Specjalista", date: "14.12.2023", img: certOzonImg, pdf: certOzonPdf },
+  { title: "Pranie tapicerki i dywanów", subtitle: "Pranie obić materiałowych, dywanów i wykładzin", level: "Podstawowy", date: "12.12.2023", img: certTapPodstImg, pdf: certTapPodstPdf },
+  { title: "Czyszczenie posadzek", subtitle: "Czyszczenie posadzek podłogowych", level: "Zaawansowany", date: "12.10.2023", img: certPosadzkiImg, pdf: certPosadzkiPdf },
+];
+
+function Certificates() {
+  return (
+    <section id="certyfikaty" className="py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading
+          eyebrow="Certyfikaty"
+          title="Nasze kwalifikacje i certyfikaty"
+          description="Tomasz Zajas — certyfikowany specjalista Professional Cleaning Sp. z o.o. Wszystkie certyfikaty są ważne bezterminowo."
+        />
+        <div className="mb-10 flex flex-wrap items-center justify-center gap-3 text-sm">
+          {["6 certyfikatów specjalisty", "Rejestr Instytucji Szkoleniowych nr 2.20/00021/2023"].map((t) => (
+            <span key={t} className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 font-medium text-foreground">
+              <CertBadgeIcon className="h-4 w-4 text-primary" />
+              {t}
+            </span>
+          ))}
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {CERTIFICATES.map((c) => (
+            <a
+              key={c.pdf}
+              href={c.pdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
+            >
+              <div className="relative aspect-[4/3] overflow-hidden bg-muted/40 p-4">
+                <img
+                  src={c.img}
+                  alt={`Certyfikat: ${c.title} — Tomasz Zajas`}
+                  loading="lazy"
+                  className="h-full w-full rounded-md object-contain shadow-md transition-transform duration-500 group-hover:scale-105"
+                />
+                <span className="absolute left-3 top-3 rounded-full bg-primary px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary-foreground">
+                  {c.level}
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col gap-2 p-5">
+                <div className="flex items-start gap-2">
+                  <Award className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                  <h3 className="font-heading text-xl font-bold leading-tight">{c.title}</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">{c.subtitle}</p>
+                <div className="mt-auto flex items-center justify-between pt-3 text-sm">
+                  <span className="text-muted-foreground">Wydany: {c.date}</span>
+                  <span className="inline-flex items-center gap-1 font-medium text-primary">
+                    <CertFileIcon className="h-4 w-4" />
+                    Zobacz PDF
+                  </span>
+                </div>
+              </div>
+            </a>
           ))}
         </div>
       </div>
@@ -633,7 +719,7 @@ function Contact() {
                   Wyślij zapytanie
                 </Button>
                 <p className="text-center text-xs text-muted-foreground">
-                  Formularz jest w wersji podglądowej — w pełnej wersji może wysyłać zapytania bezpośrednio.
+                  
                 </p>
               </form>
             </CardContent>
@@ -751,6 +837,7 @@ function Index() {
         <Services />
         <About />
         <Gallery />
+        <Certificates />
         <Testimonials />
         <Contact />
       </main>

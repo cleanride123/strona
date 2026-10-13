@@ -3,9 +3,7 @@ import g1 from "@/assets/img/cleanride-gallery-1.png";
 import g2 from "@/assets/img/cleanride-gallery-2.png";
 import g5 from "@/assets/img/cleanride-gallery-5.png";
 import g6 from "@/assets/img/cleanride-gallery-6.png";
-import t1 from "@/assets/img/cleanride-tapicerka-1.png";
 import t2 from "@/assets/img/cleanride-tapicerka-2.png";
-import t3 from "@/assets/img/cleanride-tapicerka-3.png";
 import t4 from "@/assets/img/cleanride-tapicerka-4.png";
 import m2 from "@/assets/img/cleanride-meble-2.png";
 import m3 from "@/assets/img/cleanride-meble-3.png";
@@ -60,9 +58,7 @@ export const SERVICES: Service[] = [
       "Dla właścicieli aut osobowych, dostawczych i rodzinnych, a także przed sprzedażą pojazdu lub po zalaniu napojem.",
     images: [
       { url: t4, alt: "Przednie fotele i konsola środkowa po czyszczeniu wnętrza" },
-      { url: t1, alt: "Karmelowa skórzana tylna kanapa po czyszczeniu i konserwacji" },
       { url: t2, alt: "Fotele w drugim rzędzie po praniu tapicerki" },
-      { url: t3, alt: "Pomarańczowa skórzana tapicerka i kokpit po detailingu" },
     ],
   },
   {
@@ -181,13 +177,13 @@ export const SERVICES: Service[] = [
   {
     slug: "kompleksowe-czyszczenie-wnetrza",
     icon: ShieldCheck,
-    title: "Kompleksowe czyszczenie wnętrza",
+    title: "Kompleksowe czyszczenie wnętrza pojazdów",
     description:
       "Pełny detailing wnętrza: panele, szyby, plastiki, skóra i tkaniny. Auto jak nowe.",
     intro:
       "To pełny pakiet dla wnętrza Twojego auta: tapicerka, plastiki, szyby i skóra w jednym zabiegu. Efekt — wnętrze jak z salonu, świeże i zabezpieczone na dłużej.",
     includes: [
-      "Pranie tapicerki, dywaników i podsufitki",
+      "Pranie tapicerki, dywaników i boczków drzwi",
       "Czyszczenie i konserwacja plastików oraz paneli",
       "Pielęgnacja skóry i elementów chromowanych",
       "Mycie szyb i luster od wewnątrz",
