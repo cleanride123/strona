@@ -323,16 +323,16 @@ function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
             </span>
-            Mobilne usługi w Twojej okolicy
+            Profesjonalne usługi autokosmetyczne w Twojej okolicy
           </div>
           <h1 className="font-heading text-4xl font-bold leading-[1.1] text-foreground sm:text-5xl lg:text-6xl">
-            Profesjonalna
+            Profesjonalista na wyciągnięcie ręki
             <br />
-            Autokosmetyka
+            inż. Tomasz Zajas
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Profesjonalna autokosmetyka, pranie tapicerki samochodowej i meblowej oraz kompleksowe
-            czyszczenie wnętrz. Działamy mobilnie w Oświęcimiu, Zaborzu i okolicach.
+            czyszczenie wnętrz. Działamy w Oświęcimiu, Zaborzu i okolicach.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Button
@@ -393,7 +393,7 @@ function Services() {
           title="Usługi, które przywracają świeżość"
           description="Od tapicerki samochodowej po meble i dywany — zajmiemy się każdym zabrudzeniem z profesjonalnym podejściem."
         />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service) => (
             <Link
               key={service.slug}
@@ -517,7 +517,7 @@ function Certificates() {
         <SectionHeading
           eyebrow="Certyfikaty"
           title="Nasze kwalifikacje i certyfikaty"
-          description="Tomasz Zajas — certyfikowany specjalista Professional Cleaning Sp. z o.o. Wszystkie certyfikaty są ważne bezterminowo."
+          description="inż. Tomasz Zajas — certyfikowany specjalista Professional Cleaning Sp. z.o.o. Wszystkie certyfikaty są ważne bezterminowo."
         />
         <div className="mb-10 flex flex-wrap items-center justify-center gap-3 text-sm">
           {["6 certyfikatów specjalisty", "Rejestr Instytucji Szkoleniowych nr 2.20/00021/2023"].map((t) => (

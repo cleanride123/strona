@@ -7,10 +7,10 @@ Wersja statyczna: wszystkie treści i zdjęcia są w kodzie, bez bazy danych i b
 
 - **Strona główna** (`/`) — nawigacja, powitanie z karuzelą opinii z Google, usługi,
   „O nas" z mapą Google, galeria realizacji, certyfikaty, opinie, kontakt, stopka.
-- **Podstrony usług** (`/uslugi/<slug>`) — osobna strona dla każdej z 6 usług:
+- **Podstrony usług** (`/uslugi/<slug>`) — osobna strona dla każdej z 8 usług:
   `pranie-tapicerki-samochodowej`, `pranie-tapicerki-meblowej`,
   `dywany-wykladziny-chodniki`, `czyszczenie-i-impregnacja-skory`, `ozonowanie`,
-  `kompleksowe-czyszczenie-wnetrza`.
+  `kompleksowe-czyszczenie-wnetrza`, `serwis-klimatyzacji`, `odswiezanie-lakieru`.
 
 ## Kontakt i dane firmy
 
@@ -30,6 +30,7 @@ Dane są wpisane w kodzie — najłatwiej zmienić je w plikach
 | Zdjęcia i pliki certyfikatów (PDF) | `src/assets/img/` |
 | Kolory, czcionki, wygląd | `src/styles.css` |
 | Tytuł i opis strony w Google | `src/routes/__root.tsx` oraz `head()` w `src/routes/index.tsx` |
+| Ikona w karcie przeglądarki | `public/favicon.svg` i `public/apple-touch-icon.png` |
 
 Zdjęcia importuje się w kodzie tak: `import zdjecie from "@/assets/img/cleanride-gallery-1.png";`
 i używa jako `src={zdjecie}`. Żeby podmienić zdjęcie, wstaw nowy plik do `src/assets/img/`
@@ -39,40 +40,32 @@ i podmień nazwę w imporcie.
 
 Potrzebny Node.js 20+ oraz [Bun](https://bun.sh) (albo npm).
 
-```sh
-bun install        # lub: npm install
-bun run build      # buduje gotowe pliki do folderu dist/
-bun run dev        # podgląd na żywo na http://localhost:5173
+```bash
+bun install        # albo: npm install
+bun run dev        # strona pod http://localhost:5173
+bun run build      # gotowa strona w folderze dist/
 ```
 
-## Wdrożenie na Cloudflare Workers
+## Wysłanie na Cloudflare Workers
 
-Gotowe pliki trafiają do `dist/` (`dist/server/index.mjs` dla serwera,
-`dist/client/` dla zdjęć i stylów) — to konfiguracja pod Cloudflare Workers.
+Paczka jest już skonfigurowana pod Cloudflare (`wrangler.jsonc` oraz `vite.config.ts`).
 
-1. Wgraj ten kod do repository na GitHubie.
-2. W Cloudflare: **Workers & Pages → Create → Import a repository** i wskaż to repository.
-3. Ustaw:
-   - **Build command**: `bun run build`
-   - **Deploy command**: `npx wrangler deploy`
-   - **Framework preset**: None (Plain)
-4. Nazwa projektu w Cloudflare musi być zgodna z polem `"name"` w pliku `wrangler.jsonc`
-   (domyślnie `strona` — zmień obie nazwy na takie same, jeśli chcesz inną).
+1. Zaloguj się: `npx wrangler login`
+2. Zbuduj i wyślij: `npx wrangler deploy`
+   (albo `bun run deploy`, co robi to samo)
 
-Alternatywnie, z własnego komputera: `bun install && bun run deploy`.
+Cloudflare sam zbuduje stronę przed wysłaniem dzięki `build.command` w `wrangler.jsonc`.
+Nazwa projektu to `cleanride` — jeśli taki projekt jeszcze nie istnieje, Cloudflare go utworzy.
+Po wysłaniu dostaniesz adres w postaci `https://cleanride.<twoje-konto>.workers.dev`.
 
-## Warto wiedzieć
+Żeby strona działała pod własną domeną, dodaj ją w panelu Cloudflare
+(Workers & Pages → projekt `cleanride` → Custom domains).
 
-- **Link do wizytówki w Google** jest w pliku `src/routes/index.tsx` jako
-  `GOOGLE_REVIEWS_URL`. Teraz prowadzi do wyszukiwania — wstaw tam dokładny adres
-  swojej wizytówki, gdy go masz.
-- **Formularz kontaktowy** jest tylko podglądowy: po kliknięciu „Wyślij" nic się nie wysyła.
-  Żeby dostawać zgłoszenia na e-mail, trzeba podłączyć wysyłkę (np. przez usługę e-mail).
-- **Opinie z Google** w karuzeli i w sekcji „Co mówią nasi klienci" są przepisane do kodu.
-  Przy zmianie ocen trzeba je zaktualizować ręcznie w `src/routes/index.tsx`.
-- **Certyfikaty**: podglądy (JPG) i pełne dokumenty (PDF) leżą w `src/assets/img/`,
-  a opisy w sekcji `CERTIFICATES` w `src/routes/index.tsx`.
+## Uwagi
 
-## Zbudowane z
-
-TanStack Start (React 19 + TypeScript), Tailwind CSS v4, Vite, Nitro (Cloudflare Workers).
+- Formularz kontaktowy na stronie tylko pokazuje potwierdzenie — nie wysyła wiadomości.
+  Żeby działał naprawdę, trzeba podłączyć skrzynkę lub usługę wysyłkową.
+- Link „Zobacz więcej opinii na Google" prowadzi na razie pod adres zastępczy —
+  wstaw w `src/routes/index.tsx` prawdziwy link do opinii w Google.
+- Podstrony „Serwis klimatyzacji" i „Odświeżanie lakieru" nie mają jeszcze zdjęć —
+  dodasz je w `src/lib/services.ts` (sekcja `images`) po wrzuceniu plików do `src/assets/img/`.

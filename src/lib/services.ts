@@ -1,4 +1,4 @@
-import { Car, Sofa, Droplets, Sparkles, Wind, ShieldCheck, type LucideIcon } from "lucide-react";
+import { Car, Sofa, Droplets, Sparkles, Wind, ShieldCheck, Snowflake, SprayCan, type LucideIcon } from "lucide-react";
 import g1 from "@/assets/img/cleanride-gallery-1.png";
 import g2 from "@/assets/img/cleanride-gallery-2.png";
 import g5 from "@/assets/img/cleanride-gallery-5.png";
@@ -39,10 +39,10 @@ export const SERVICES: Service[] = [
     description:
       "Kompleksowe czyszczenie foteli, dywaników, podsufitki i bagażnika. Usuwamy plamy, brud i nieprzyjemne zapachy.",
     intro:
-      "Wnętrze auta to miejsce, w którym spędzasz codziennie wiele godzin. Metodą ekstrakcyjną wypłukujemy brud z głębi włókien — nie tylko z powierzchni — dzięki czemu tapicerka wygląda i pachnie jak nowa.",
+      "Wnętrze auta to miejsce, w którym spędzasz codziennie wiele godzin. Metodą ekstrakcyjną wypłukujemy brud z głębi włókien, nie tylko z powierzchni. Dzięki czemu tapicerka wygląda i pachnie jak nowa.",
     includes: [
       "Pranie ekstrakcyjne foteli i kanapy",
-      "Czyszczenie dywaników i wykładziny podłogowej",
+      "Czyszczenie dywaników i boczków drzwi",
       "Pranie podsufitki i boczków drzwi",
       "Czyszczenie bagażnika",
       "Usuwanie plam (kawa, tłuszcz, atrament, jedzenie)",
@@ -52,7 +52,7 @@ export const SERVICES: Service[] = [
       { title: "Oględziny", text: "Oceniamy rodzaj materiału i stopień zabrudzenia, dobieramy odpowiednie środki." },
       { title: "Odkurzanie i aplikacja", text: "Dokładnie odkurzamy wnętrze, a następnie nakładamy preparat na plamy i tapicerkę." },
       { title: "Pranie ekstrakcyjne", text: "Wypłukujemy brud i środek razem z wodą, odsysając wszystko z włókien." },
-      { title: "Osuszanie i kontrola", text: "Usuwamy nadmiar wilgoci i sprawdzamy efekt z klientem." },
+      { title: "Osuszanie i kontrola", text: "Usuwamy nadmiar wilgoci oraz osuszamy specjalistycznymi urządzeniami po czym sprawdzamy efekt z klientem." },
     ],
     forWhom:
       "Dla właścicieli aut osobowych, dostawczych i rodzinnych, a także przed sprzedażą pojazdu lub po zalaniu napojem.",
@@ -125,7 +125,7 @@ export const SERVICES: Service[] = [
     description:
       "Pielęgnacja skórzanej tapicerki. Czyszczenie, odświeżanie i impregnacja chroniąca przed pękaniem.",
     intro:
-      "Skóra wymaga delikatnej pielęgnacji. Czyścimy ją specjalistycznymi preparatami, odżywiamy i zabezpieczamy impregnatem, który chroni przed wysychaniem, pękaniem i przetarciami.",
+      "Skóra wymaga delikatnej pielęgnacji. Czyścimy ją specjalistycznymi preparatami, odżywiamy i zabezpieczamy impregnatem oraz powłoką ochronną, które chronią przed wysychaniem, pękaniem i przetarciami.",
     includes: [
       "Delikatne czyszczenie skóry naturalnej i ekologicznej",
       "Usuwanie przetarć kolorystycznych i zabrudzeń",
@@ -203,6 +203,56 @@ export const SERVICES: Service[] = [
       { url: g1, alt: "Odświeżona tapicerka skórzana" },
       { url: g2, alt: "Auto po kompleksowym detailingu" },
     ],
+  },
+  {
+    slug: "serwis-klimatyzacji",
+    icon: Snowflake,
+    title: "Serwis klimatyzacji",
+    description:
+      "Czyszczenie, dezynfekcja i odgrzybianie klimatyzacji samochodowej. Świeże powietrze i sprawne chłodzenie przez cały rok.",
+    intro:
+      "W układzie klimatyzacji z czasem gromadzą się kurz, wilgoć, bakterie i grzyby, które powodują nieprzyjemny zapach i obniżają komfort jazdy. Dokładnie czyścimy i dezynfekujemy układ, dzięki czemu oddychasz świeżym powietrzem.",
+    includes: [
+      "Czyszczenie i dezynfekcja parownika oraz kanałów nawiewu",
+      "Odgrzybianie i usuwanie bakterii z układu klimatyzacji",
+      "Wymiana filtra kabinowego",
+      "Kontrola szczelności i skuteczności chłodzenia",
+      "Neutralizacja nieprzyjemnych zapachów z nawiewów",
+    ],
+    steps: [
+      { title: "Diagnoza", text: "Sprawdzamy stan klimatyzacji, zapach z nawiewów i skuteczność chłodzenia." },
+      { title: "Czyszczenie układu", text: "Aplikujemy preparat czyszczący do parownika i kanałów wentylacyjnych." },
+      { title: "Dezynfekcja", text: "Odgrzybiamy i dezynfekujemy układ, eliminując bakterie i źródło zapachu." },
+      { title: "Kontrola", text: "Wymieniamy filtr kabinowy i sprawdzamy efekt razem z klientem." },
+    ],
+    forWhom:
+      "Dla kierowców, którzy czują nieprzyjemny zapach z nawiewów, przed sezonem letnim oraz po zakupie używanego auta.",
+    images: [],
+  },
+  {
+    slug: "odswiezanie-lakieru",
+    icon: SprayCan,
+    title: "Odświeżanie lakieru",
+    description:
+      "Mycie, polerowanie i zabezpieczanie lakieru. Usuwamy zmatowienia i drobne rysy, przywracając głęboki połysk.",
+    intro:
+      "Z czasem lakier traci połysk — matowieje, pokrywa się drobnymi rysami i zabrudzeniami. Odświeżamy go, polerujemy i zabezpieczamy, aby karoseria znów wyglądała jak nowa i dłużej pozostała w dobrym stanie.",
+    includes: [
+      "Dokładne mycie i odtłuszczanie karoserii",
+      "Glinkowanie lakieru i usuwanie osadów",
+      "Polerowanie maszynowe — usuwanie zmatowień i drobnych rysek",
+      "Zabezpieczenie lakieru woskiem lub powłoką ochronną",
+      "Odświeżenie felg, uszczelek i elementów plastikowych",
+    ],
+    steps: [
+      { title: "Oględziny lakieru", text: "Oceniamy stan powłoki i dobieramy zakres oraz metodę polerowania." },
+      { title: "Mycie i glinkowanie", text: "Myjemy auto i usuwamy z lakieru osady, których nie zbierze zwykłe mycie." },
+      { title: "Polerowanie", text: "Maszynowo usuwamy zmatowienia i drobne rysy, przywracając głęboki kolor." },
+      { title: "Zabezpieczenie", text: "Nakładamy wosk lub powłokę, która chroni lakier i podkreśla połysk." },
+    ],
+    forWhom:
+      "Dla właścicieli aut z matowym lub porysowanym lakierem, przed sprzedażą pojazdu oraz po zimie.",
+    images: [],
   },
 ];
 
