@@ -332,7 +332,7 @@ function Hero() {
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Profesjonalna autokosmetyka, pranie tapicerki samochodowej i meblowej oraz kompleksowe
-            czyszczenie wnętrz. Działamy w Oświęcimiu, Zaborzu i okolicach.
+            czyszczenie pojazdów. Działamy w Oświęcimiu, Zaborzu i okolicach.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Button

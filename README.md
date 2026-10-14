@@ -1,71 +1,72 @@
 # CleanRide — strona internetowa
 
-Strona firmy CleanRide (autokosmetyka, pranie tapicerki samochodowej i meblowej).
-Wersja statyczna: wszystkie treści i zdjęcia są w kodzie, bez bazy danych i bez logowania.
+Statyczna strona firmy CleanRide: autokosmetyka, pranie tapicerki samochodowej i meblowej,
+serwis klimatyzacji, odświeżanie lakieru i inne usługi czyszczenia wnętrz.
 
-## Co jest na stronie
+Dane kontaktowe widoczne na stronie: telefon **663 803 798**, e-mail **cleanride@interia.pl**,
+adres **Grojceka, 32-600 Zaborze**.
 
-- **Strona główna** (`/`) — nawigacja, powitanie z karuzelą opinii z Google, usługi,
-  „O nas" z mapą Google, galeria realizacji, certyfikaty, opinie, kontakt, stopka.
-- **Podstrony usług** (`/uslugi/<slug>`) — osobna strona dla każdej z 8 usług:
-  `pranie-tapicerki-samochodowej`, `pranie-tapicerki-meblowej`,
-  `dywany-wykladziny-chodniki`, `czyszczenie-i-impregnacja-skory`, `ozonowanie`,
-  `kompleksowe-czyszczenie-wnetrza`, `serwis-klimatyzacji`, `odswiezanie-lakieru`.
+## Czego potrzebujesz
 
-## Kontakt i dane firmy
+- [Bun](https://bun.sh) (zalecany) albo Node.js 20+ i npm
+- Konto na [Cloudflare](https://dash.cloudflare.com) — tylko jeśli chcesz wystawić stronę na Cloudflare Pages/Workers
 
-- Telefon: **663 803 798**
-- E-mail: **cleanride@interia.pl**
-- Adres: **Grojceka, 32-600 Zaborze**
+## Praca na własnym komputerze
 
-Dane są wpisane w kodzie — najłatwiej zmienić je w plikach
-`src/lib/services.ts` (telefon) i `src/routes/index.tsx` (pozostałe).
+```sh
+bun install       # zainstaluj zależności (raz)
+bun run dev       # podgląd pod http://localhost:8080
+bun run build     # buduje gotową stronę do katalogu dist/
+bun run preview   # podgląd zbudowanej wersji
+```
+
+## Wystawienie strony na Cloudflare
+
+1. Zaloguj się do Cloudflare i wybierz **Workers & Pages**.
+2. Jeśli przesyłasz kod z tego folderu (np. przez „Upload" albo Git), upewnij się,
+   że build jest włączony: plik `wrangler.jsonc` ma już wpis `build.command = "bun run build"`.
+3. Zainstaluj zależności lokalnie (`bun install`), a potem:
+
+```sh
+npx wrangler login
+npx wrangler deploy
+```
+
+Można też użyć skrótu: `bun run deploy` (czyli build + deploy jednym poleceniem).
+
+Nazwa wdrożenia to `cleanride` — zmienisz ją w pliku `wrangler.jsonc` (pole `name`).
+Adres strony po wdrożeniu to zwykle `https://cleanride.<twoje-konto>.workers.dev`.
+
+Jeśli chcesz użyć własnej domeny (np. cleanride.pl), dodaj ją w Cloudflare i
+przypisz do tego wdrożenia w ustawieniach Workers.
 
 ## Gdzie co zmienić
 
 | Co chcesz zmienić | Plik |
 | --- | --- |
-| Nazwy, opisy, ceny i zdjęcia usług | `src/lib/services.ts` |
-| Teksty na stronie głównej, opinie, certyfikaty, mapa | `src/routes/index.tsx` |
-| Zdjęcia i pliki certyfikatów (PDF) | `src/assets/img/` |
-| Kolory, czcionki, wygląd | `src/styles.css` |
-| Tytuł i opis strony w Google | `src/routes/__root.tsx` oraz `head()` w `src/routes/index.tsx` |
+| Tekst pod głównym nagłówkiem, nagłówek, plakietki, sekcje na stronie głównej | `src/routes/index.tsx` |
+| Usługi (nazwy, opisy, „Co obejmuje usługa", „Jak pracujemy", „Dla kogo", zdjęcia) | `src/lib/services.ts` |
+| Podstrona pojedynczej usługi (układ strony) | `src/routes/uslugi.$slug.tsx` |
+| Kolory, fonty, motyw ciemny/jasny | `src/styles.css` |
+| Numer telefonu, e-mail, adres | szukaj `663 803 798`, `cleanride@interia.pl` i `Grojceka` w `src/routes/index.tsx` i `src/lib/services.ts` |
+| Zdjęcia i certyfikaty | `src/assets/img/` (podmiana pliku o tej samej nazwie wystarczy) |
 | Ikona w karcie przeglądarki | `public/favicon.svg` i `public/apple-touch-icon.png` |
 
-Zdjęcia importuje się w kodzie tak: `import zdjecie from "@/assets/img/cleanride-gallery-1.png";`
-i używa jako `src={zdjecie}`. Żeby podmienić zdjęcie, wstaw nowy plik do `src/assets/img/`
-i podmień nazwę w imporcie.
+Każda usługa ma własny adres: `/uslugi/<nazwa>`, np. `/uslugi/pranie-tapicerki-samochodowej`,
+`/uslugi/serwis-klimatyzacji`, `/uslugi/odswiezanie-lakieru`.
 
-## Uruchomienie u siebie
+## Certyfikaty
 
-Potrzebny Node.js 20+ oraz [Bun](https://bun.sh) (albo npm).
+Sześć certyfikatów jest w sekcji „Certyfikaty" na stronie głównej. Każdy pokazuje podgląd
+(obraz z pierwszej strony PDF) i po kliknięciu otwiera pełny dokument PDF.
+Pliki: `src/assets/img/cert-*.pdf` oraz `src/assets/img/cert-*.jpg`.
 
-```bash
-bun install        # albo: npm install
-bun run dev        # strona pod http://localhost:5173
-bun run build      # gotowa strona w folderze dist/
-```
+## O czym warto pamiętać
 
-## Wysłanie na Cloudflare Workers
-
-Paczka jest już skonfigurowana pod Cloudflare (`wrangler.jsonc` oraz `vite.config.ts`).
-
-1. Zaloguj się: `npx wrangler login`
-2. Zbuduj i wyślij: `npx wrangler deploy`
-   (albo `bun run deploy`, co robi to samo)
-
-Cloudflare sam zbuduje stronę przed wysłaniem dzięki `build.command` w `wrangler.jsonc`.
-Nazwa projektu to `cleanride` — jeśli taki projekt jeszcze nie istnieje, Cloudflare go utworzy.
-Po wysłaniu dostaniesz adres w postaci `https://cleanride.<twoje-konto>.workers.dev`.
-
-Żeby strona działała pod własną domeną, dodaj ją w panelu Cloudflare
-(Workers & Pages → projekt `cleanride` → Custom domains).
-
-## Uwagi
-
-- Formularz kontaktowy na stronie tylko pokazuje potwierdzenie — nie wysyła wiadomości.
-  Żeby działał naprawdę, trzeba podłączyć skrzynkę lub usługę wysyłkową.
-- Link „Zobacz więcej opinii na Google" prowadzi na razie pod adres zastępczy —
-  wstaw w `src/routes/index.tsx` prawdziwy link do opinii w Google.
-- Podstrony „Serwis klimatyzacji" i „Odświeżanie lakieru" nie mają jeszcze zdjęć —
-  dodasz je w `src/lib/services.ts` (sekcja `images`) po wrzuceniu plików do `src/assets/img/`.
+- **Formularz kontaktowy** na stronie jest tylko demonstracyjny — wpisane dane nigdzie
+  nie są wysyłane. Żeby działał naprawdę, trzeba go podłączyć do usługi wysyłającej
+  wiadomości (np. przez backend lub serwis typu Formspree).
+- **Link „Zobacz więcej opinii na Google"** w karuzeli opinii (`GOOGLE_REVIEWS_URL`
+  w `src/routes/index.tsx`) jest jeszcze zastępczy — wstaw tam prawdziwy adres profilu
+  w Google, żeby klienci mogli przejść do pełnej listy opinii.
+- Strona jest w całości statyczna — nie potrzebuje bazy danych ani logowania.
